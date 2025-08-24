@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: bitespeed_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: contact
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: Bitespeed_Backend_App
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/mydb"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npx prisma migrate deploy && npm start"
+
+volumes:
+  pgdata:
