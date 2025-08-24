@@ -24,6 +24,8 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use("/identify",contactRouter);
+
 app.listen(PORT,()=>{
     Logger.info(`Server is listening to port: ${PORT} `);
 });
