@@ -22,8 +22,8 @@ export class ContactService{
             // return the updated data in the below format
             return {
                 primaryContactId:newPrimaryContact.id,
-                emails:[newPrimaryContact.email],
-                phoneNumbers:[newPrimaryContact.phoneNumber],
+                emails:[newPrimaryContact.email].filter(Boolean),
+                phoneNumbers:[newPrimaryContact.phoneNumber].filter(Boolean),
                 secondaryContactIds:null
             }
         }
