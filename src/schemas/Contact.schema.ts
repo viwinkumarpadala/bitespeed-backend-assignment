@@ -1,6 +1,7 @@
 import {z} from "zod";
 import { errorCodes } from "../errors/ErrorCodes";
 
+// Validation schema for input request
 const validationSchema = z.object({
     email:z.email({message:errorCodes.INVALID_EMAIL}).nullable().optional(),
     phoneNumber: z.string().regex(/^\d*$/, {message: errorCodes.INVALID_PHONE_NUMBER,}).optional().nullable(),

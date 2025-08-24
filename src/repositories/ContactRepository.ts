@@ -2,7 +2,8 @@ import {prisma} from "../config/db";
 import { Contact } from "../types/Contact";
 
 export class ContactRepository{
-
+    
+    // Create a primary contact
     async createPrimaryContact(email?:string,phoneNumber?:string): Promise<Contact>{
     const newPrimaryContact = await prisma.contact.create({
         data:{
@@ -14,7 +15,8 @@ export class ContactRepository{
 
     return newPrimaryContact;
     }
-
+    
+    // Create a secondary contact
     async createSecondaryContact(
         primaryIdNumber:number,
         emailExists:boolean,
@@ -37,7 +39,7 @@ export class ContactRepository{
         }
     }
 
-
+   // Get all matching contacts using the provided email and phonenumber
    async getMatchingContacts(email?:string,phoneNumber?:string): Promise<Contact[]>{
         const contacts = await prisma.contact.findMany({
             where:{
@@ -49,6 +51,7 @@ export class ContactRepository{
         return contacts;
     }
 
+    // Get all the primary and secondary contacts that are linked with an ID
     async getContactsById(primaryIdNumber:number): Promise<Contact[]>{
     const PrimaryContacts = await prisma.contact.findMany({
         where:{
@@ -61,6 +64,7 @@ export class ContactRepository{
     return PrimaryContacts;
    }
 
+   // Get all contacts that match the given list of IDs
    async getLinkedPrimaryContacts(primaryIds:number[]): Promise<Contact[]>{
     const LinkedPrimaryContacts = await prisma.contact.findMany({
         where:{
@@ -73,6 +77,7 @@ export class ContactRepository{
     return LinkedPrimaryContacts;
    }
 
+   // Convert the linked primary contacts into secondary contacts
    async primaryToSecondaryHandler (MatchingContacts:Contact[]){
 
         let primaryContact:Contact = MatchingContacts[0];

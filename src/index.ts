@@ -13,6 +13,7 @@ import { ContactRouter } from "./routes/ContactRoute";
 dotenv.config();
 const PORT = process.env.PORT;
 
+// Contact router setup
 const contactRepository = new ContactRepository();
 
 const contactService = new ContactService(contactRepository);
@@ -27,10 +28,14 @@ app.use(cors());
 
 app.use(express.json());
 
+
+// Swagger documentation
 const swaggerDocument = fs.readFileSync(path.join(__dirname, "../src/docs/identify.yaml"), 'utf8');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(JSON.parse(JSON.stringify(require('js-yaml').load(swaggerDocument)))));
 
+
+// Identify api
 app.use("/identify",contactRouter);
 
 app.listen(PORT,()=>{

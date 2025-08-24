@@ -3,6 +3,7 @@ import { ContactService } from "../services/ContactService";
 import Logger from "../utils/Logger";
 import { errorCodes } from "../errors/ErrorCodes";
 
+// Controller for handling the contact service
 
 export class ContactController{
 

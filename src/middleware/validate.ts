@@ -3,6 +3,8 @@ import {ZodObject,ZodError} from "zod";
 import Logger from "../utils/Logger";
 import { errorCodes } from "../errors/ErrorCodes";
 
+// Validate the request data body to match with the valid format
+
 const validate = (schema:ZodObject<any>) =>(req:Request,res:Response,next:NextFunction) =>{
     try{
         schema.parse(req.body);
