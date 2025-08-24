@@ -54,3 +54,6 @@ docker-compose up --build
    ```
 
 ---
+## Relevant Links
+- **Exposed endpoint link**: [Link](https://bitespeed-backend-assignment-vsje.onrender.com/identify)
+- **Swagger Documentation link**: [Link](https://bitespeed-backend-assignment-vsje.onrender.com/api-docs/)
