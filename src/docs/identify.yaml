@@ -1,0 +1,93 @@
+openapi: 3.1.0
+
+info:
+  title: Identify API backend assignment - bitespeed
+  description: This api will be helpful in identifying primary and secondary contacts and link them together
+  version: 1.0
+
+paths:
+  /identify:
+    post:
+      summary: Identify the linked user contacts using the provided email or phoneNumber
+      description: The user will pass email? or phoneNumber? values and the api will have to find and return the contact information including ptimary and secondary contacts(if any).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "mcfly@hillvalley.edu"
+                phoneNumber:
+                  type: string
+                  example: "123456"
+              oneOf:
+                - required: ["email"]
+                - required: ["phoneNumber"]
+      responses:
+        "200":
+          description: "Successful"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  primaryContactId:
+                    type: integer
+                    example: 1
+                  emails:
+                    type: array
+                    items:
+                      type: string 
+                      format: email 
+                      example: ["george@hillvalley.edu","biffsucks@hillvalley.edu"]
+                  phoneNumbers: 
+                    type: array
+                    items:
+                      type: string
+                      example: ["919191","717171"]
+                  secondaryContactIds:
+                    type: array
+                    items:
+                      type: integer
+                      example: [23,24]
+        "400":
+          description: "Bad Request - Invalid or missing inputs"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "email or phonenumber should be provided!"
+              examples:
+                missing_fields:
+                  summary: Missing fields
+                  value:
+                    error: "email or phonenumber should be provided!"
+                invalid_email:
+                  summary: Invalid Email
+                  value:
+                    error: "Provide a valid email"
+                invalid_phone:
+                  summary: Invalid Phone Number
+                  value:
+                    error: "Provide a valid phone number (digits only)"
+
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: "Internal server error"
+
+                
