@@ -23,7 +23,7 @@ services:
       - postgres
     environment:
       PORT: 5000
-      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/mydb"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/contact"
     volumes:
       - .:/app
       - /app/node_modules
