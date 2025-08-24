@@ -1,6 +1,7 @@
 import { ContactRepository } from "../repositories/ContactRepository";
 import { Contact } from "../types/Contact";
 import { ContactInfo } from  "../types/ContactInfo";
+import Logger from "../utils/Logger";
 
 
 export class ContactService{
@@ -37,6 +38,17 @@ export class ContactService{
             if(primaryContactsList.length==0){
                 updatedContacts = await this.allSecondaryContactsHandler(MatchingContacts);
             }
+            else if(secondarContactsList.length==0){
+                if(primaryContactsList.length==1){
+                    updatedContacts = await this.contactRepository.getContactsById(MatchingContacts[0].id);
+                }
+                else{
+                    updatedContacts = await this.contactRepository.primaryToSecondaryHandler(MatchingContacts);
+                }
+            }
+            else if(primaryContactsList.length!=0 && secondarContactsList.length!=0){
+                updatedContacts = await this.multiplePrimaryAndSecondaryHandler(primaryContactsList,secondarContactsList);
+            }
 
             primarycontact = updatedContacts[0];
             secondaryContacts = updatedContacts.slice(1);
@@ -63,7 +75,7 @@ export class ContactService{
         const linkedPrimaryIDs = SecondaryContacts.slice(1).map(x=>x.linkedId);
 
         if(SecondaryContacts.length==1){
-            
+
             let primaryContactId = SecondaryContacts[0].linkedId;
 
             const contacts = await this.contactRepository.getContactsById(primaryContactId);
@@ -79,6 +91,27 @@ export class ContactService{
             return updatedContacts;
         }
 
+    }
+
+    private async multiplePrimaryAndSecondaryHandler(primaryContactsList:Contact[],secondarContactsList:Contact[]){
+
+        const allPrimaryIds = [...new Set([...primaryContactsList.map(x=>x.id),...secondarContactsList.map(x=>x.linkedId)])];
+
+
+        if(allPrimaryIds.length==1){
+            const contacts = this.contactRepository.getContactsById(allPrimaryIds[0]);
+            Logger.info(`Contacts:${JSON.stringify(contacts)}`); 
+            return contacts;
+        }
+        else{
+            const LinkedPrimaryContacts = await this.contactRepository.getLinkedPrimaryContacts(allPrimaryIds);
+
+            const updatedContacts = await this.contactRepository.primaryToSecondaryHandler(LinkedPrimaryContacts);
+
+            Logger.info(`updated contacts:${JSON.stringify(updatedContacts)}`);
+
+            return updatedContacts;
+        }
     }
 
     
