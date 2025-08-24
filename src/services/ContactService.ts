@@ -1,6 +1,6 @@
 import { ContactRepository } from "../repositories/ContactRepository";
-import { Contact } from "../types/contact";
-import { ContactInfo } from  "../types/contactInfo";
+import { Contact } from "../types/Contact";
+import { ContactInfo } from  "../types/ContactInfo";
 
 
 export class ContactService{

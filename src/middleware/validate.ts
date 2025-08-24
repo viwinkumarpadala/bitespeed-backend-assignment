@@ -1,7 +1,7 @@
 import { NextFunction,Request,Response } from "express";
 import {ZodObject,ZodError} from "zod";
-import Logger from "../utils/logger";
-import { errorCodes } from "../errors/errorCodes";
+import Logger from "../utils/Logger";
+import { errorCodes } from "../errors/ErrorCodes";
 
 const validate = (schema:ZodObject<any>) =>(req:Request,res:Response,next:NextFunction) =>{
     try{

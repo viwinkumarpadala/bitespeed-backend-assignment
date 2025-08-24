@@ -1,5 +1,5 @@
 import {prisma} from "../config/db";
-import { Contact } from "../types/contact";
+import { Contact } from "../types/Contact";
 
 export class ContactRepository{
 

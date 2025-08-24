@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ContactService } from "../services/ContactService";
-import Logger from "../utils/logger";
-import { errorCodes } from "../errors/errorCodes";
+import Logger from "../utils/Logger";
+import { errorCodes } from "../errors/ErrorCodes";
 
 
 export class contactController{

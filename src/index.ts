@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import Logger from "./utils/logger";
+import Logger from "./utils/Logger";
 
 dotenv.config();
 const PORT = process.env.PORT;

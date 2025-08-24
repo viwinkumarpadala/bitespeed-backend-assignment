@@ -1,5 +1,5 @@
 import {z} from "zod";
-import { errorCodes } from "../errors/errorCodes";
+import { errorCodes } from "../errors/ErrorCodes";
 
 const validationSchema = z.object({
     email:z.email({message:errorCodes.INVALID_EMAIL}).nullable().optional(),
