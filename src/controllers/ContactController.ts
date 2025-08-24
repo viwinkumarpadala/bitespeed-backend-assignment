@@ -4,7 +4,7 @@ import Logger from "../utils/Logger";
 import { errorCodes } from "../errors/ErrorCodes";
 
 
-export class contactController{
+export class ContactController{
 
     constructor(private readonly service: ContactService){};
 
