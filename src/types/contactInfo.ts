@@ -1,4 +1,4 @@
-export interface contactInfo{
+export interface ContactInfo{
     primaryContactId:number;
     emails:string[];
     phoneNumbers:string[];
